@@ -55,7 +55,6 @@
       break;
   }
   */
-
   echo '<br/><br/>****Estructura switch****<br/>';
   $dia = 2;
 
@@ -65,25 +64,25 @@
       echo 'Lunes';
       break;
     case 2:
-      echo '<br/>Martes';
+      echo 'Martes';
       break;
     case 3:
-      echo '<br/>Miércoles';
+      echo 'Miércoles';
       break;
     case 4:
-      echo '<br/>Jueves';
+      echo 'Jueves';
       break;
     case 5:
-      echo '<br/>Viernes';
+      echo 'Viernes';
       break;
     case 6:
-      echo '<br/>Sábado';
+      echo 'Sábado';
       break;
     case 7:
-      echo '<br/>Domingo';
+      echo 'Domingo';
       break;
     default:
-      echo '<br/>Día no válido';
+      echo 'Día no válido';
       break;
   }
 
@@ -92,10 +91,54 @@
     # code...
   }
   */
-
   echo '<br/><br/>****Estructura for****<br/>';
 
   for ($i = 0; $i < 5; $i++) { 
     echo "Hola mundo $i<br/>";
   }
+
+  /*
+  while (condicion) {
+    # code...
+  }
+  */
+  echo '<br/><br/>****Estructura while****<br/>';
+
+  $i=0;
+  while ($i <= 5) {
+    echo "Hola mundo $i<br/>";
+    $i++;
+  }
+
+  /*
+  do {
+    # code...
+  } while (condicion);
+  */
+  echo '<br/><br/>****Estructura dowhile****<br/>';
+
+  $x = 10;
+  do {
+    echo "Hola mundo $x<br/>";
+    $x++;
+  } while ($x <= 5);
+
+  /*
+  foreach ($arr as $key => $value) {
+    # code...
+  };
+  */
+  echo '<br/><br/>****Estructura foreach****<br/>';
+
+  echo '**Array normal**<br/>';
+  $arr = array(1009, 2990, 134, 2445, 414);
+  foreach ($arr as $key) {
+    echo "$key<br/>";
+  };
+
+  echo '**Array asociativo**<br/>';
+  $arrAs = array("a" => 10, "b" => 12, "c" => 13, "d" => 24, "e" => 45);
+  foreach ($arrAs as $key => $value) {
+    echo "$key: $value<br/>";
+  };
 ?>
