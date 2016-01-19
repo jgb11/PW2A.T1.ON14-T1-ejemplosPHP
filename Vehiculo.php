@@ -1,19 +1,11 @@
 <?php
-class Coche{
-  # propiedades
-  # public > indica que el método o propiedad está accesible desde cualquier sitio
-  # private > indica que el método o prpiedad solo será accesible desde dentro de la propia clase
-  # protected > indica que el método o prpiedad este disponible en la clase que ha sido definido
-  #             y en todas las clases que hereden de la clase donde se ha definido
-  private $color;
-  private $marca;
-  private $modelo;
-  private $velocidad;
-  const NUM_RUEDAS = 4; # esta propiedad tendra un valor inicial fijo para todos los objetos de esta clase
+class Vehiculo{
+  protected $color;
+  protected $marca;
+  protected $modelo;
+  protected $velocidad;
 
-  # metodos
   public function __construct ($marca, $modelo, $color) {
-    // al acceder a una propiedad o método desde dentro del objeto hay que hacerlo mediante $this->
     $this->marca = $marca;
     $this->modelo = $modelo;
     $this->color = $color;
@@ -46,4 +38,22 @@ class Coche{
     return $this->velocidad;
   }
 }
+
+class Coche extends Vehiculo{
+
+  public function acelerar () {
+    $this->velocidad += 20;
+  }
+  public function claxon () {
+    return 'Piiiiiiiiiiiiii!';
+  }
+}
+
+class Bicicleta extends Vehiculo{
+
+  public function acelerar () {
+    $this->velocidad += 5;
+  }
+}
+
 ?>
