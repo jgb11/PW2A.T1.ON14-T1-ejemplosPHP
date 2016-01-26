@@ -20,14 +20,22 @@ class CuentaBancaria{
   }
 
   public function ingresar($cantidad) {
-    $this->saldo += $cantidad;
+    if($cantidad > 0) {
+      $this->saldo += $cantidad;
+    } else {
+      echo ' Cantidad no válida ';
+    }
   }
 
   public function retirar($cantidad) {
-    if ($this->saldo > $cantidad) {
-      $this->saldo -= $cantidad;
+    if($cantidad > 0) {
+      if ($this->saldo >= $cantidad) {
+        $this->saldo -= $cantidad;
+      } else {
+        echo ' No hay suficiente dinero en la cuenta ';
+      }
     } else {
-      echo ' No hay suficiente dinero en la cuenta ';
+      echo ' Cantidad no válida ';
     }
   }
 

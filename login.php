@@ -1,7 +1,12 @@
 <?php
+require 'poo-utilidades.php';
 session_start();
-$email = addslashes(strip_tags($_POST['email']));
-$password = addslashes(strip_tags($_POST['password']));
+// $email = addslashes(strip_tags($_POST['email']));
+// $password = addslashes(strip_tags($_POST['password']));
+
+// Utilizar la clase Utilidades
+$email = Utilidades::sanear($_POST['email']);
+$password = Utilidades::sanear($_POST['password']);
 
 $archivo = fopen('config/data.ini', 'r');
 $email_bd = trim(fgets($archivo)); // trim() elimina todos los caracteres sobrantes de una cadena
