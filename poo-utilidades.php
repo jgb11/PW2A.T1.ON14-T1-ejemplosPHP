@@ -1,4 +1,5 @@
 <?php
+namespace MiProyecto\Util;
 class Utilidades{
   public static function sanear($contenido){
     return trim(addslashes(strip_tags($contenido)));
@@ -38,7 +39,7 @@ class Utilidades{
     if (!is_dir($rutaFichero)) {
       mkdir($rutaFichero);
     }
-    $archivo = fopen($rutaFichero.$nombreFichero, 'a');
+    $archivo = fopen($rutaFichero.$nombreFichero, 'w+');
     fwrite($archivo, $contenido);
     fclose($archivo);
   }

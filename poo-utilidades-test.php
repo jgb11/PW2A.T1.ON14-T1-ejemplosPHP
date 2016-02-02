@@ -1,13 +1,22 @@
 <?php
+// namespace MiProyecto\Util;
 require 'poo-utilidades.php';
+require 'vendor/nesbot/carbon/src/Carbon/Carbon.php';
 
-echo Utilidades::generarPass(30).'<br/>';
+use \MiProyecto\Util\Utilidades as util;
+use Carbon\Carbon;
+
+echo Carbon::now().'<br/>';
+// echo __NAMESPACE__.'<br/>';
+// echo \MiProyecto\Utilidades::generarPass(30).'<br/>';
+echo util::generarPass(30).'<br/>';
+echo util::generarPass(30).'<br/>';
 
 $nombreFichero = 'dataUtilidades.ini';
 $rutaFichero = 'config/';
-$contenido = 'hola mundo!';
+$contenido = "hola mundo!\r\n";
 
-Utilidades::crearFichero($nombreFichero, $rutaFichero, $contenido);
+util::crearFichero($nombreFichero, $rutaFichero, $contenido);
 
-echo Utilidades::leerFichero($nombreFichero, $rutaFichero).'<br/>';
+echo util::leerFichero($nombreFichero, $rutaFichero).'<br/>';
 ?>
