@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,6 +42,16 @@
       $connection->close();
       ?>
     </table>
+
+
+    <?php
+      if (isset($_SESSION['msg'])) {
+        echo '<div class="alert alert-info">'.$_SESSION['msg'].'</div>';
+        unset($_SESSION['msg']);
+      }
+    ?>
+
+    <a href="form-insert.php">Insertar nuevo producto</a>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
