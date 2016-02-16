@@ -1,10 +1,35 @@
+<?php
+session_start();
+if (isset($_GET['ref']) && is_numeric($_GET['ref'])) {
+  $ref = addslashes(strip_tags($_GET['ref']));
+
+  $connection = new mysqli('localhost', 'root', '', 'ejemplos');
+  $result = $connection->query("SELECT * FROM productos WHERE referencia = $ref");
+
+  if ($result->num_rows == 0) {
+    $_SESSION['msg'] = 'Producto no encontrado.';
+    header('Location: catalogo.php');
+    exit();
+  }
+  $producto = $result->fetch_assoc();
+
+  $connection->close();
+
+} else {
+  $_SESSION['msg'] = 'Producto no válido.';
+  header('Location: catalogo.php');
+  exit();
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agregar nuevo producto</title>
+    <title>Editar producto</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -20,42 +45,43 @@
   <body>
     <div class="container">
       <div class="col-sm-8 col-sm-offset-2">
-      <form class="form-horizontal" name="nuevo" action="insert.php" method="post">
+      <form class="form-horizontal" name="editar" action="update.php" method="post">
         <div class="panel panel-default">
           <div class="panel-heading clearfix">
             <i class="icon-calendar"></i>
-            <h3 class="panel-title">Agregar Producto</h3>
+            <h3 class="panel-title">Editar Producto</h3>
           </div>
         </div>
         <legend>Datos del producto</legend>
+        <input type="hidden" class="form-control" name="referencia" value="<?php echo $ref; ?>">
         <div class="form-group">
           <label class="col-md-4 control-label">Nombre</label>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="nombre" value="">
+            <input type="text" class="form-control" name="nombre" value="<?php echo $producto['nombre']; ?>">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-4 control-label">Marca</label>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="marca" value="">
+            <input type="text" class="form-control" name="marca" value="<?php echo $producto['marca']; ?>">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-4 control-label">Precio</label>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="precio" value="">
+            <input type="text" class="form-control" name="precio" value="<?php echo $producto['precio']; ?>">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-4 control-label">Stock</label>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="stock" value="">
+            <input type="text" class="form-control" name="stock" value="<?php echo $producto['stock']; ?>">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-4 control-label"></label>
            <div class="col-md-4">
-               <button type="submit" class="btn btn-primary">Guardar producto</button>
+               <button type="submit" class="btn btn-primary">Editar producto</button>
            </div>
        </div>
       </form>

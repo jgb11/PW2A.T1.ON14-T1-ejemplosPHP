@@ -15,43 +15,52 @@ session_start();
 
   </head>
   <body>
-    <h1>Catálogo de productos</h1>
-    <table class="table">
-      <tr>
-        <th>Referencia</th>
-        <th>Nombre</th>
-        <th>Marca</th>
-        <th>Precio</th>
-        <th>Stock</th>
-      </tr>
+    <div class="container">
+      <div class="col-sm-8 col-sm-offset-2">
+      <h1>Catálogo de productos</h1>
       <?php
-      # extensión avanzada para conectar a una bbdd mysql
-      $connection = new mysqli('localhost', 'root', '', 'ejemplos');
-      # query siempre con comillas dobles ""
-      $result = $connection->query("SELECT * FROM productos");
-      while ($producto = $result->fetch_assoc()) {
-        echo '<tr>';
-        echo '<td>'.$producto['referencia'].'</td>';
-        echo '<td>'.$producto['nombre'].'</td>';
-        echo '<td>'.$producto['marca'].'</td>';
-        echo '<td>'.$producto['precio'].'</td>';
-        echo '<td>'.$producto['stock'].'</td>';
-        echo '</tr>';
-      }
-
-      $connection->close();
+        if (isset($_SESSION['msg'])) {
+          echo '<div class="alert alert-info">'.$_SESSION['msg'].'</div>';
+          unset($_SESSION['msg']);
+        }
       ?>
-    </table>
 
+      <br/>
+      <a href="form-insert.php" class="btn btn-info">Insertar nuevo producto</a>
+      <br/><br/>
 
-    <?php
-      if (isset($_SESSION['msg'])) {
-        echo '<div class="alert alert-info">'.$_SESSION['msg'].'</div>';
-        unset($_SESSION['msg']);
-      }
-    ?>
+      <table class="table">
+        <tr>
+          <th>Referencia</th>
+          <th>Nombre</th>
+          <th>Marca</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Acciones</th>
+        </tr>
+        <?php
+        # extensión avanzada para conectar a una bbdd mysql
+        $connection = new mysqli('localhost', 'root', '', 'ejemplos');
+        # query siempre con comillas dobles ""
+        $result = $connection->query("SELECT * FROM productos");
+        while ($producto = $result->fetch_assoc()) {
+          echo '<tr>';
+          echo '<td>'.$producto['referencia'].'</td>';
+          echo '<td>'.$producto['nombre'].'</td>';
+          echo '<td>'.$producto['marca'].'</td>';
+          echo '<td>'.$producto['precio'].'</td>';
+          echo '<td>'.$producto['stock'].'</td>';
+          echo '<td>';
+            echo '<a href="form-update.php?ref='.$producto['referencia'].'">Editar</a>';
+          echo '</td>';
+          echo '</tr>';
+        }
 
-    <a href="form-insert.php">Insertar nuevo producto</a>
+        $connection->close();
+        ?>
+      </table>
+      </div>
+    </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
