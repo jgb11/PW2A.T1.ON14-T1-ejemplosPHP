@@ -1,12 +1,14 @@
 <?php
-session_start();
-if (isset($_GET['ref']) && is_numeric($_GET['ref'])) {
-  $ref = addslashes(strip_tags($_GET['ref']));
+require 'functions-bd.php';
+if (isset($_GET['ref'])) { # && is_numeric($_GET['ref'])) {
+  # $ref = addslashes(strip_tags($_GET['ref']));
+  $ref = filter_input(INPUT_GET, 'ref', FILTER_SANITIZE_NUMBER_INT);
 
-  $connection = new mysqli('localhost', 'root', '', 'ejemplos');
+  $connection = connection();
   $result = $connection->query("SELECT * FROM productos WHERE referencia = $ref");
 
   if ($result->num_rows == 0) {
+    $_SESSION['error'] = true;
     $_SESSION['msg'] = 'Producto no encontrado.';
     header('Location: catalogo.php');
     exit();
@@ -16,6 +18,7 @@ if (isset($_GET['ref']) && is_numeric($_GET['ref'])) {
   $connection->close();
 
 } else {
+  $_SESSION['error'] = true;
   $_SESSION['msg'] = 'Producto no válido.';
   header('Location: catalogo.php');
   exit();

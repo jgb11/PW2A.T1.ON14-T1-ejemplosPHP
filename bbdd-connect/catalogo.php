@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'functions-bd.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,14 +19,25 @@ session_start();
       <div class="col-sm-8 col-sm-offset-2">
       <h1>Catálogo de productos</h1>
       <?php
+      if (isset($_SESSION['error'])) {
         if (isset($_SESSION['msg'])) {
-          echo '<div class="alert alert-info">'.$_SESSION['msg'].'</div>';
+          echo '<div class="alert alert-danger">'.$_SESSION['msg'].'</div>';
           unset($_SESSION['msg']);
         }
+        unset($_SESSION['error']);
+      } else {
+        if (isset($_SESSION['msg'])) {
+          echo '<div class="alert alert-success">'.$_SESSION['msg'].'</div>';
+          unset($_SESSION['msg']);
+        }
+      }
+
       ?>
 
       <br/>
-      <a href="form-insert.php" class="btn btn-info">Insertar nuevo producto</a>
+      <a href="form-insert.php" class="btn btn-info">
+        <span class="glyphicon glyphicon-plus"></span> Insertar nuevo producto
+      </a>
       <br/><br/>
 
       <table class="table">
@@ -40,7 +51,7 @@ session_start();
         </tr>
         <?php
         # extensión avanzada para conectar a una bbdd mysql
-        $connection = new mysqli('localhost', 'root', '', 'ejemplos');
+        $connection = connection();
         # query siempre con comillas dobles ""
         $result = $connection->query("SELECT * FROM productos");
         while ($producto = $result->fetch_assoc()) {
@@ -51,7 +62,12 @@ session_start();
           echo '<td>'.$producto['precio'].'</td>';
           echo '<td>'.$producto['stock'].'</td>';
           echo '<td>';
-            echo '<a href="form-update.php?ref='.$producto['referencia'].'">Editar</a>';
+            echo '<a href="form-update.php?ref='.$producto['referencia'].'" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                  </a>  ';
+            echo '<a href="delete.php?ref='.$producto['referencia'].'" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </a>';
           echo '</td>';
           echo '</tr>';
         }
