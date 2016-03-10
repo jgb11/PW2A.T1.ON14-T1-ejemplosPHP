@@ -3,7 +3,7 @@ session_start();
 
 if (isset($_SESSION['email'])) {
   $_SESSION['msg'] = "Ya ha iniciado sesión de usuario, bienvenido a su perfil.";
-  header('Location: login-profile.php');
+  header('Location: login-perfil.php');
   exit();
 }
 ?>
