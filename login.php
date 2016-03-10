@@ -19,7 +19,7 @@ try {
   if($email == $email_bd && password_verify($password, $password_bd)){
     $_SESSION['email'] = $email;
     $_SESSION['msg'] = "Bienvenido a su perfil de usuario.";
-    header('Location: login-perfil.php');
+    header('Location: login-profile.php');
     exit();
   } else {
     throw new LoginException("Datos de acceso incorrectos", 1);
