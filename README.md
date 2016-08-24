@@ -11,6 +11,6 @@ Pruebas de conceptos básicos de PHP.
 - Password hash
 - ...
 
-Prerequisitos:
+Prerrequisitos:
 
 - Tener instalado [XAMPP](https://www.apachefriends.org/es/index.html)
