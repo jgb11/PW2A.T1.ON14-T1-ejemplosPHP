@@ -1,4 +1,4 @@
-<?php 
+<?php
   $paises = array('Spain', 'France', 'Germany', 'Italy');
   print_r($paises);
 
